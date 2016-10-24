@@ -21,3 +21,6 @@ RUN mkdir -p /tmp/gof3r && \
     tar xvzf /tmp/gof3r/gof3r.tar.gz -C /tmp/gof3r && \
     mv /tmp/gof3r/gof3r_${GOF3R_VERSION}_linux_amd64/gof3r /usr/local/bin && \
     rm -rf /tmp/gof3r
+
+ADD backup-consul.sh /backup-consul.sh
+CMD ["/bin/sh","/backup-consul.sh"]
