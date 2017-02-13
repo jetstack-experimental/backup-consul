@@ -5,14 +5,14 @@ stages:
 - docker
 
 docker:image:
-  image: docker:latest
+  image: docker:1.12
   stage: docker
   tags:
   - docker
   script:
   - apk --update add make
   - mkdir -p ~/.docker && echo "${DOCKER_AUTH_CONFIG}" > ~/.docker/config.json && chmod 600 ~/.docker/config.json
-  - make image test push IMAGE_TAGS="${CI_BUILD_REF_SLUG}-${CI_PIPELINE_ID} canary"
+  - make image push IMAGE_TAGS="${CI_BUILD_REF_SLUG}-${CI_PIPELINE_ID} canary"
   only:
   - master
   except:
@@ -21,14 +21,14 @@ docker:image:
   - docker:dind
 
 docker:image_tagged:
-  image: docker:latest
+  image: docker:1.12
   stage: docker
   tags:
   - docker
   script:
   - apk --update add make
   - mkdir -p ~/.docker && echo "${DOCKER_AUTH_CONFIG}" > ~/.docker/config.json && chmod 600 ~/.docker/config.json
-  - make image test push IMAGE_TAGS="${CI_BUILD_TAG} latest"
+  - make image push IMAGE_TAGS="${CI_BUILD_TAG} latest"
   only:
   - tags
   except:
